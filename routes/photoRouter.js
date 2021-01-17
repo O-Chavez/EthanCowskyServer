@@ -1,14 +1,37 @@
 const router = require("express").Router();
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require('cloudinary');
 const Photo = require('../models/photo');
+const multer = require('multer');
 
-cloudinary.config({ 
-  cloud_name: 'projectimgcloud', 
-  api_key: process.env.CLOUDINARY_API_KEY, 
-  api_secret: process.env.CLOUDINARY_API_SECRET 
+
+const storage = multer.diskStorage({
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname)
+  }
 });
 
-// GET ALL PHOTOSnpm start
+// const imageFilter = (req, file, cb) => {
+//   // accept image files only
+//   if (!file.filename.match(/\.(jpg|jpeg|png|gif)$/i)) {
+//       return cb(new Error('Only image files are allowed!'), false);
+//   }
+//   cb(null, true);
+// };
+
+const upload = multer({storage: storage});
+
+// cloudinary.config({ 
+//   cloud_name: 'projectimgcloud', 
+//   api_key: process.env.CLOUDINARY_API_KEY, 
+//   api_secret: process.env.CLOUDINARY_API_SECRET 
+// });
+cloudinary.config({ 
+  cloud_name: 'projectimgcloud', 
+  api_key: "473754918178142", 
+  api_secret: "WG_EfOs5phMceSRxjv_lPCzmZuY",
+});
+
+// GET ALL PHOTOS
 router.get("/", async (req, res) => {
   try {
     const allPhotos = await Photo.find({});
@@ -19,42 +42,31 @@ router.get("/", async (req, res) => {
 });
 
 // UPLOAD PHOTO
-router.post("/upload", async (req, res) => {
+router.post("/upload", upload.single('file'), (req, res) => {
   try{
   // DESTRUCURE REQ.BODY
-    const { file, photoName, photoDescription, photoPrice } = req.body;
+    const { photoName, photoDescription, photoPrice } = req.body;
     
   // FORM VALIDATION
-    if ( !file || !photoName || !photoDescription || !photoPrice ){
+    if ( !req.file || !photoName || !photoDescription || !photoPrice ){
       return res.status(400).json({msg: "Not all fields have been entered!"});
     }
 
   // UPLOAD PHOTO TO CLOUDINARY 
-  cloudinary.uploader.upload( file, (error, result) => {
-    console.log(result, error)
-    
-  } );
+  cloudinary.v2.uploader.upload(req.file.path, {upload_preset: "Ethan Cowsky website"}, (err, result) => {
 
-  // GET URL FROM CLOUDINARY
-    
+     // GET URL FROM CLOUDINARY
+    // req.body.photoshits = result.secure_url;
+    return res.json({res: result});
+  });
 
-
-  // SAVE PHOTO IN MONGO
-    const newPhoto = new Photo({
-      file: cloudinaryURL,
-      photoName: photoName,
-      photoDescription: photoDescription,
-      photoPrice: photoPrice
-    });
-
-    const savedPhoto = await newPhoto.save();
-    // res.json({req});
-    res.json({savedPhoto});
+   
+  // // SAVE PHOTO WITH URL IN MONGO
 
   } catch (error) {
     res.json({ msg: error.message});
   }
-})
+});
 
 
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const crypto = require('crypto');
-const multer = require('multer');
+// const multer = require('multer');
 const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 const bodyParser = require('body-parser');
@@ -19,6 +19,7 @@ require("dotenv").config();
 const app = express();
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true}));
 app.use(methodOverride('_method'));
 app.use(express.json());
 app.use(cors());
