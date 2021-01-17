@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const photoSchema = new mongoose.Schema({
-  fileName: {
+const PhotoSchema = new mongoose.Schema({
+  file: {
     type: String,
     required: true
   },
@@ -14,7 +14,10 @@ const photoSchema = new mongoose.Schema({
     required: true
   },
   photoPrice: {
-    type: "number",
+    type: Number,
     required: true
   }
-})
+});
+
+const Photo = mongoose.model("Photo", PhotoSchema);
+module.exports = Photo;
