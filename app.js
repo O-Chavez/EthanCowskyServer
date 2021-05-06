@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const crypto = require('crypto');
-// const multer = require('multer');
 const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 const bodyParser = require('body-parser');
@@ -13,6 +12,7 @@ const cors = require("cors");
 
 const photos = require("./routes/photoRouter");
 const admin = require("./routes/adminRouter");
+const paymentProcessing = require("./routes/paymentRouter");
 
 require("dotenv").config();
 
@@ -41,8 +41,14 @@ mongoose.connect(
  })
 
 
+ const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+ const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
+ 
+
 //  app.use("/admin", require("./routes/photoRouter"));
  app.use("/photos", require("./routes/photoRouter"));
+ app.use("/payment", require("./routes/paymentRouter"));
+ app.use("/admin", require("./routes/adminRouter"));
 
 app.listen(PORT, () => {
   console.log(`Ethan Cowsky server started on port ${PORT}`)

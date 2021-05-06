@@ -5,6 +5,9 @@ const PhotoSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  showImg: {
+    type: String
+  },
   photoName: {
     type: String,
     required: true,
