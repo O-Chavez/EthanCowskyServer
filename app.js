@@ -46,7 +46,9 @@ mongoose.connect(
  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
  const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
  
-
+ app.get('/', (req, res) => {
+  res.send('Hello to Ethan Cowsky 3D Renders!');
+})
 //  app.use("/admin", require("./routes/photoRouter"));
  app.use("/photos", require("./routes/photoRouter"));
  app.use("/payment", require("./routes/paymentRouter"));
