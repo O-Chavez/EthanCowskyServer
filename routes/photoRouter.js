@@ -102,7 +102,7 @@ router.post("/upload", upload.single('file'), async (req, res) => {
           Photo.create({
                 file: URL,
                 photoName,
-                showImg: `https://d147gc4b3ckpsg.cloudfront.net/filters:quality(40)/filters:format(jpeg)/uploads/${photoName}.${filetype}`,
+                showImg: `https://d147gc4b3ckpsg.cloudfront.net/filters:quality(80)/filters:format(jpeg)/uploads/${photoName}.${filetype}`,
                 photoDescription,
                 photoPrice
               }, (err, photo) => {

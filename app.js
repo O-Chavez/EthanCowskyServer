@@ -16,6 +16,8 @@ const paymentProcessing = require("./routes/paymentRouter");
 
 require("dotenv").config();
 
+app.use(express.static('public'));
+
 const app = express();
 
 app.use(bodyParser.json());
