@@ -54,7 +54,7 @@ mongoose.connect(
  app.use("/payment", require("./routes/paymentRouter"));
  app.use("/admin", require("./routes/adminRouter"));
  app.get('*', () => {
-   res.res.redirect('/');
+   res.redirect('/');
  })
 
 app.listen(PORT, () => {
