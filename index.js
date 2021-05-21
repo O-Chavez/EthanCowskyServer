@@ -53,7 +53,7 @@ mongoose.connect(
  app.use("/photos", require("./routes/photoRouter"));
  app.use("/payment", require("./routes/paymentRouter"));
  app.use("/admin", require("./routes/adminRouter"));
- app.get('*', () => {
+ app.get('*', (res, res) => {
    res.redirect('/');
  })
 
