@@ -53,6 +53,9 @@ mongoose.connect(
  app.use("/photos", require("./routes/photoRouter"));
  app.use("/payment", require("./routes/paymentRouter"));
  app.use("/admin", require("./routes/adminRouter"));
+ app.get('*', () => {
+   res.res.redirect('/');
+ })
 
 app.listen(PORT, () => {
   console.log(`Ethan Cowsky server started on port ${PORT}`)
