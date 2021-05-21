@@ -54,7 +54,7 @@ mongoose.connect(
  app.use("/payment", require("./routes/paymentRouter"));
  app.use("/admin", require("./routes/adminRouter"));
 
- app.use((res, res) => {
+ app.use((req, res) => {
   //  res.redirect('/');
    res.send("hmmm. this pages doesnt seem to be here...");
  });
