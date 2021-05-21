@@ -29,22 +29,26 @@ app.use(express.static('public'));
 const PORT = process.env.PORT || 3001;
 
 // mongoose SetUp
-mongoose.connect(process.env.MONGODB_CONNECTION_STRING, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false })
-  .then(() => app.listen(PORT, () => console.log(`Server running on ${PORT}`)))
-  .catch((error) => console.log(error.message));
-
-
-// mongoose.connect(
-//   process.env.MONGODB_CONNECTION_STRING,  { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false }, 
-//  (err) => {
-//    if (err) throw err;
-//    console.log("MongoDB Connection established!")
-//  })
+mongoose.connect(
+  process.env.MONGODB_CONNECTION_STRING,
+  {
+    useNewUrlParser: true,
+    useCreateIndex: true, 
+    useUnifiedTopology: true,
+    useFindAndModify: false
+ }, 
+ (err) => {
+   if (err) throw err;
+   console.log("MongoDB Connection established!")
+ })
 
 
  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
  const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
  
+ app.get('/', (req, res) => {
+  res.send('Hello to LiftTracker API!');
+})
 //  app.use("/admin", require("./routes/photoRouter"));
  app.use("/photos", require("./routes/photoRouter"));
  app.use("/payment", require("./routes/paymentRouter"));
