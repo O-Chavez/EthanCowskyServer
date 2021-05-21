@@ -16,8 +16,6 @@ const paymentProcessing = require("./routes/paymentRouter");
 
 require("dotenv").config();
 
-app.use(express.static('public'));
-
 const app = express();
 
 app.use(bodyParser.json());
@@ -25,6 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(methodOverride('_method'));
 app.use(express.json());
 app.use(cors());
+app.use(express.static('public'));
+
 
 const PORT = process.env.PORT || 3001;
 
@@ -46,9 +46,7 @@ mongoose.connect(
  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
  const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
  
- app.get('/', (req, res) => {
-  res.send('Hello to Ethan Cowsky 3D Renders!');
-})
+
 //  app.use("/admin", require("./routes/photoRouter"));
  app.use("/photos", require("./routes/photoRouter"));
  app.use("/payment", require("./routes/paymentRouter"));
