@@ -55,8 +55,8 @@ mongoose.connect(
  app.use("/admin", require("./routes/adminRouter"));
 
  app.use((req, res) => {
-  //  res.redirect('/');
-   res.send("hmmm. this pages doesnt seem to be here...");
+   res.redirect('/');
+  //  res.send("hmmm. this pages doesnt seem to be here...");
  });
 
 app.listen(PORT, () => {
