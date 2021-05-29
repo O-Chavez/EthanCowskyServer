@@ -95,12 +95,13 @@ router.post("/upload", upload.single('file'), async (req, res) => {
         if (err) {
           return res.json({err});
         } if (data) {
-            // HASH URL OF FULL RESOLUTION URL
-              const salt = await bcrypt.genSalt();
-              const URL = await bcrypt.hash(data.Location, salt);
+            // // HASH URL OF FULL RESOLUTION URL
+            //   const salt = await bcrypt.genSalt();
+            //   const URL = await bcrypt.hash(data.Location, salt);
+            
           // GET URL FROM AWS AND ADD DATA TO MONGO
           Photo.create({
-                file: URL,
+                file: data.Location,
                 photoName,
                 showImg: `https://d147gc4b3ckpsg.cloudfront.net/filters:quality(80)/filters:format(jpeg)/uploads/${photoName}.${filetype}`,
                 photoDescription,
